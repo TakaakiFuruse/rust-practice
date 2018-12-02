@@ -1,0 +1,1 @@
+/mnt/seagate-4tb/Dropbox/Dropbox/Desktop/rust_practice/rust_by_example/target/debug/rust_by_example-0b6f09da95c42a35: /mnt/seagate-4tb/Dropbox/Dropbox/Desktop/rust_practice/rust_by_example/src/main.rs
