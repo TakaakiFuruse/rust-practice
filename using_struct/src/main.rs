@@ -3,12 +3,12 @@ struct User {
     name: String,
     email: String,
     sign_in_count: u64,
-    active: bool
+    active: bool,
 }
 
 fn main() {
     // === Structの使い方-====
-    let mut user1 = User{
+    let mut user1 = User {
         // Using &str woudl be better, but need to use liftimes.
         email: String::from("mail@mail.com"),
         name: String::from("Name Nam"),
@@ -24,13 +24,11 @@ fn main() {
     println!("{}", user1.email);
 
     // 関数から作る
-    let user2 = build_user(String::from("hey@yo.com"),
-                           String::from("My Name"),
-                           &user1);
+    let user2 = build_user(String::from("hey@yo.com"), String::from("My Name"), &user1);
     println!("{:?}", user2);
 
     // Shorthand
-    let user3 = User{
+    let user3 = User {
         email: String::from("new@user.com"),
         name: String::from("New Name"),
         ..user1
@@ -46,15 +44,15 @@ fn main() {
     struct Something(i32, i32, i32);
 
     // color and something is different datatypes.
-    let black = Color(0,0,0);
-    let something = Something(1,2,3);
+    let black = Color(0, 0, 0);
+    let something = Something(1, 2, 3);
 
     println!("{:?}", black);
     println!("{:?}", something);
 }
 
-fn build_user(email: String, name: String, user: &User) -> User{
-    User{
+fn build_user(email: String, name: String, user: &User) -> User {
+    User {
         email: email,
         name, // <- shorthand
         active: user.active,
