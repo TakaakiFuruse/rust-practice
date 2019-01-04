@@ -1,5 +1,5 @@
 [package]
-name = "types_traits_lifetimes"
+name = "rust-lifetime-from-youtube"
 version = "0.1.0"
 authors = ["TakaakiFuruse <takaakifuruse@gmail.com>"]
 edition = "2018"

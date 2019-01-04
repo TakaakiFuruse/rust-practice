@@ -1,13 +1,13 @@
 #![allow(dead_code)]
 
-use types_traits_lifetimes::Mituo;
-use types_traits_lifetimes::NahaNaha;
-use types_traits_lifetimes::NewsArticle;
-use types_traits_lifetimes::SayIt;
-use types_traits_lifetimes::Senda;
-use types_traits_lifetimes::ShoutOut;
-use types_traits_lifetimes::Summary;
-use types_traits_lifetimes::Tweet;
+use types_traits::Mituo;
+use types_traits::NahaNaha;
+use types_traits::NewsArticle;
+use types_traits::SayIt;
+use types_traits::Senda;
+use types_traits::ShoutOut;
+use types_traits::Summary;
+use types_traits::Tweet;
 
 fn largest_i32(list: &[i32]) -> i32 {
     let mut largest = list[0];
@@ -99,7 +99,7 @@ fn main() {
 
     println!("largest num: {}", result);
 
-    let number_list = vec![341, 52340, 2235235, 112300, 55526];
+    let number_list = vec![341, 52340, 2_235_235, 112_300, 55526];
     let result = largest_i32(&number_list);
 
     println!("largest num: {}", result);
@@ -123,7 +123,7 @@ fn main() {
 
     // mixup
     let p1 = Point3 { x: 5, y: 1.4 };
-    let p2 = Point2 { x: 4, y: 3.14 };
+    let p2 = Point2 { x: 4, y: 2.14 };
 
     println!("{}", p1.x());
     println!("{:?}", p1.mixup(p2));
@@ -190,7 +190,7 @@ fn main() {
     // 下をやるとエラー。タイプがついてこないので、メソッドがない。
     // println!("{}", shout3.shoutout());
     // = note: the method `shoutout` exists but the following trait bounds were not satisfied:
-    // `types_traits_lifetimes::NahaNaha : types_traits_lifetimes::SayIt`
+    // `types_traits::NahaNaha : types_traits::SayIt`
 }
 
 // traits as arguments (syntax sugar for verbose one)
@@ -199,7 +199,7 @@ pub fn notify(item: &impl Summary) {
 }
 
 // trait bounds
-pub fn notify_verbose<T: Summary>(item: T) {
+pub fn notify_verbose<T: Summary>(item: &T) {
     println!("Breaking new {}!!", item.article_type());
 }
 
