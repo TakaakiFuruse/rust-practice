@@ -37,3 +37,4 @@ fn three_ref<'a, 'b>(a: &'a Int32, b: &Int32, c: &Int32, cr: &'b ComplexRefs<'a>
         a
     }
 }
+
