@@ -1,0 +1,8 @@
+[package]
+name = "iterators_and_closures"
+version = "0.1.0"
+authors = ["TakaakiFuruse <takaakifuruse@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.4.0"
