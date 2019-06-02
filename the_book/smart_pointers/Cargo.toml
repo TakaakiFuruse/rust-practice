@@ -1,0 +1,10 @@
+[package]
+name = "smart_pointers"
+version = "0.1.0"
+authors = ["TakaakiFuruse <takaakifuruse@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+piston_window = "0.73"       
+piston2d-graphics = "0.23"   
+rand = "0.3"
