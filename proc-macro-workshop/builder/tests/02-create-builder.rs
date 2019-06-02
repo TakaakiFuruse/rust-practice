@@ -52,18 +52,8 @@ pub struct Command1 {
     current_dir: String,
 }
 
-#[derive(Builder)]
-pub struct Command2 {
-    executable: String,
-    args: Vec<String>,
-    env: Vec<String>,
-    current_dir: String,
-}
-
 fn main() {
     let builder1 = Command1::builder();
-    let builder2 = Command2::builder();
 
     let _ = builder1;
-    let _ = builder2;
 }
