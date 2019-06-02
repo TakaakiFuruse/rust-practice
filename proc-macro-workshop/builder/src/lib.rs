@@ -1,3 +1,4 @@
+#![recursion_limit = "128"]
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
@@ -13,6 +14,8 @@ pub fn derive(input: TokenStream) -> TokenStream {
 fn impl_builder(ast: &syn::DeriveInput) -> TokenStream {
     let name = &ast.ident;
     let gen = quote! {
+        use std::error::Error;
+
         pub struct CommandBuilder {
             executable: Option<String>,
             args: Option<Vec<String>>,
@@ -36,6 +39,18 @@ fn impl_builder(ast: &syn::DeriveInput) -> TokenStream {
             fn current_dir(&mut self, current_dir: String) -> &mut Self{
                 self.current_dir = Some(current_dir);
                 self
+            }
+
+            pub fn build(self)-> Result<#name, Box<dyn Error>>{
+                Ok(
+                    #name {
+                        executable: self.executable.unwrap(),
+                        args: self.args.unwrap(),
+                        env: self.env.unwrap(),
+                        current_dir: self.current_dir.unwrap(),
+
+                    }
+                )
             }
         }
 
