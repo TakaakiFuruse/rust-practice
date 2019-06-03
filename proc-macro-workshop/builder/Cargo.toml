@@ -16,5 +16,5 @@ path = "tests/progress.rs"
 trybuild = "1.0"
 
 [dependencies]
-syn = "0.14.4"
+syn = "0.15.34"
 quote = "0.6.3"
