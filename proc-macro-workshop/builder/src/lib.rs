@@ -16,6 +16,7 @@ fn impl_builder(ast: &syn::DeriveInput) -> TokenStream {
     let gen = quote! {
         use std::error::Error;
 
+        #[derive(Debug)]
         pub struct CommandBuilder {
             executable: Option<String>,
             args: Option<Vec<String>>,
@@ -41,14 +42,13 @@ fn impl_builder(ast: &syn::DeriveInput) -> TokenStream {
                 self
             }
 
-            pub fn build(self)-> Result<#name, Box<dyn Error>>{
+            pub fn build(&self)-> Result<#name, Box<dyn Error>>{
                 Ok(
                     #name {
-                        executable: self.executable.unwrap(),
-                        args: self.args.unwrap(),
-                        env: self.env.unwrap(),
-                        current_dir: self.current_dir.unwrap(),
-
+                        executable: self.executable.clone().ok_or("NONE!!")?,
+                        args: self.args.clone().ok_or("NONE!!")?,
+                        env: self.env.clone().ok_or("NONE!!")?,
+                        current_dir: self.current_dir.clone().ok_or("NONE!!")?,
                     }
                 )
             }
