@@ -3,15 +3,15 @@ extern crate proc_macro;
 
 use proc_macro::TokenStream;
 use quote::quote;
-use syn;
+use syn::{parse_macro_input, DeriveInput};
 
 #[proc_macro_derive(Builder)]
 pub fn derive(input: TokenStream) -> TokenStream {
-    let ast = syn::parse(input).unwrap();
+    let ast = parse_macro_input!(input as DeriveInput);
     impl_builder(&ast)
 }
 
-fn impl_builder(ast: &syn::DeriveInput) -> TokenStream {
+fn impl_builder(ast: &DeriveInput) -> TokenStream {
     let name = &ast.ident;
     let gen = quote! {
         use std::error::Error;
