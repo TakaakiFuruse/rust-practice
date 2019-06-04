@@ -1,10 +1,13 @@
-#![recursion_limit = "128"]
+#![recursion_limit = "256"]
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
 use quote::quote;
-use syn::{parse_macro_input, DeriveInput};
+use syn::Data::Struct;
+use syn::Fields::Named;
+use syn::{Path, Type};
 
+use syn::{parse_macro_input, DeriveInput};
 #[proc_macro_derive(Builder)]
 pub fn derive(input: TokenStream) -> TokenStream {
     let ast = parse_macro_input!(input as DeriveInput);
@@ -13,6 +16,16 @@ pub fn derive(input: TokenStream) -> TokenStream {
 
 fn impl_builder(ast: &DeriveInput) -> TokenStream {
     let name = &ast.ident;
+    let current_dir_field_type = match &ast.data {
+        Struct(s) => match &s.fields {
+            Named(f) => match &f.named[3].ty {
+                Type::Path(g) => &g.path.segments[0].ident,
+                _ => unimplemented!(),
+            },
+            _ => unimplemented!(),
+        },
+        _ => unimplemented!(),
+    };
     let gen = quote! {
         use std::error::Error;
 
@@ -41,6 +54,28 @@ fn impl_builder(ast: &DeriveInput) -> TokenStream {
                 self.current_dir = Some(current_dir);
                 self
             }
+
+            // pub fn build(&self)-> Result<#name, Box<dyn Error>>{
+            //     match #current_dir_field_type {
+            //         Option(h) => Ok(
+            //             #name {
+            //                 executable: self.executable.clone().ok_or("NONE!!")?,
+            //                 args: self.args.clone().ok_or("NONE!!")?,
+            //                 env: self.env.clone().ok_or("NONE!!")?,
+            //                 current_dir: self.current_dir.clone()?,
+            //             }
+            //         ),
+            //         String(h) => Ok(
+            //             #name {
+            //                 executable: self.executable.clone().ok_or("NONE!!")?,
+            //                 args: self.args.clone().ok_or("NONE!!")?,
+            //                 env: self.env.clone().ok_or("NONE!!")?,
+            //                 current_dir: self.current_dir.clone().ok_or("NONE!!")?,
+            //             }
+            //         ),
+            //         _ => unimplemented!(),
+            //     }
+            // }
 
             pub fn build(&self)-> Result<#name, Box<dyn Error>>{
                 Ok(
