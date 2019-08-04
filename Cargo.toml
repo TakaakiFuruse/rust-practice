@@ -1,5 +1,0 @@
-[package]
-name = "rust_practice"
-version = "0.1.0"
-authors = ["TakaakiFuruse <takaakifuruse@gmail.com>"]
-edition = "2018"
